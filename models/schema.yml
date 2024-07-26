@@ -10,7 +10,7 @@ sources:
         description: sales of greenweez    
         tests:
             - unique:
-               column_name : "(products_id || '-' ||orders_id)"
+               column_name : "(pdt_id || '-' ||orders_id)"
             
 
       - name: raw_gz_ship
