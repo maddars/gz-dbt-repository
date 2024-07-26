@@ -3,11 +3,16 @@ version: 2
 sources:
   - name: gz_raw_data
     description: greenweezeraw data sources
+    
 
     tables:
       - name: raw_gz_sales
-        description: sales of greenweez
-      
+        description: sales of greenweez    
+        tests:
+            - unique:
+               column_name : "(products_id || '-' ||orders_id)"
+            
+
       - name: raw_gz_ship
         description: ship of greenweez
         columns:
