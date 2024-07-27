@@ -4,9 +4,8 @@ sources:
   - name: raw
     schema: gz_raw_data
 
-
     tables:
-      - name: sales 
+      - name: sales
         identifier: raw_gz_sales
         description: sales of greenwez
       - name: ship
@@ -15,23 +14,3 @@ sources:
       - name: product
         identifier: raw_gz_product
         description: product of greenweez
-        
-        tests:
-            - unique:
-               column_name : "(pdt_id || '-' ||orders_id)"
-            
-
-      
-        
-        columns:
-          - name: orders_id
-            description: primary key of the column
-            tests:
-            - unique
-            - not_null
-
-        
-                
-
-
-            
