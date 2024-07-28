@@ -6,7 +6,44 @@ sources:
     tables:
       - name: sales
         identifier: raw_gz_sales
-      - name : product
+        description: sales of greenweez
+        tests:
+          - unique:
+             column_name: "(orders_id || '-' || pdt_id)"
+        columns:
+          - name: date_date
+            description: date of purchase
+          - name: orders_id
+            description: foreign key to ship
+          - name: pdt_id
+            description: foreign key to product
+          - name: revenue
+            description: amount paid by the customer
+          - name: quantity
+            description: quantity 
+      - name: product
         identifier: raw_gz_product
-      - name : ship
+        description: product of greenweez
+        tests:
+          - unique:
+          - not null
+        columns:
+          - name: products_id
+            description: primary key of the table
+          - name: purchase_price
+            description: purchase price of the product
+      - name: ship
         identifier: raw_gz_ship
+        description: ship of greenweez
+        tests:
+          - unique:
+          - not null
+        columns:
+          - name: orders_id
+            description: primary key of orders
+          - name: shipping_fee
+            description: price the customer pays for shipping
+          - name: log_cost
+            description: cost for preparing the parcel
+          - name: ship_cost 
+            description: cost paid by the customer to ship the product
