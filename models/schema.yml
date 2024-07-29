@@ -4,6 +4,11 @@ sources:
   - name: raw
     schema: gz_raw_data
     tables:
+      - name: raw_gz_adwords
+      - name: raw_gz_bing
+      - name: raw_gz_criteo
+      - name: raw_gz_facebook
+      
       - name: sales
         identifier: raw_gz_sales
         description: sales of greenweez
