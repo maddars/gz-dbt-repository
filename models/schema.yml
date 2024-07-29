@@ -1,0 +1,110 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: gz_raw_data
+    tables:
+      - name: sales
+        identifier: raw_gz_sales
+        description: sales of greenweez
+        columns:
+          - name: date_date
+            description: date of purchase
+          - name: orders_id
+            description: foreign key to ship
+          - name: pdt_id
+            description: foreign key to product
+          - name: revenue
+            description: amount paid by the customer
+          - name: quantity
+            description: quantity
+        tests:
+          - unique:
+              column_name: "(orders_id || '-' || pdt_id)"
+
+      - name: product
+        identifier: raw_gz_product
+        description: product of greenweez
+        columns:
+          - name: products_id
+            description: primary key of the table
+          - name: purchase_price
+            description: purchase price of the product
+
+      - name: ship
+        identifier: raw_gz_ship
+        columns:
+          - name: orders_id
+            description: primary key of orders
+          - name: shipping_fee
+            description: price the customer pays for shipping
+          - name: log_cost
+            description: cost for preparing the parcel
+          - name: ship_cost
+            description: cost paid by the customer to ship the product
+models:
+
+
+  - name: stg_raw__ship
+    description: clean
+    tests:
+      - unique:
+          column_name: orders_id
+      - not_null:
+          column_name: orders_id
+
+  - name: stg_raw__product
+    description: clean2
+    tests:
+      - unique:
+          column_name: products_id
+      - not_null:
+          column_name: products_id
+
+  - name: int_orders_margin
+    description: margin calcultation per order
+    columns:
+      - name: order_id
+        description: primary key
+      - name: margin
+        description: Margin = Revenue - Purchase_cost
+      - name: Purchase_cost
+        description: Purchase_cost = Quantity * Purchase_price
+      - name: date_date
+        description: date of the order
+      - name: revenue
+        description: sum of revenue per order
+      - name: quantity
+        description: sum of quantity per order
+  - name: stg_raw_product
+  - name: stg_raw_sales
+  - name: stg_raw_ship
+  - name: int_sales_margin
+    description: margin calcultation per order line / product sale
+    columns:
+      - name: margin
+        description: Margin = Revenue - Purchase_cost
+      - name: Purchase_cost
+        description: Purchase_cost = Quantity * Purchase_price
+  - name: int_orders_ma rgin
+    description: margin calcultation per order
+    columns:
+      - name: orders_id
+        description: primary key
+      - name: margin
+        description: Margin = Revenue - Purchase_cost
+      - name: Purchase_cost
+        description: Purchase_cost = Quantity * Purchase_price
+      - name: date_date
+        description: date of the order
+      - name: revenue
+        description: sum of revenue per order
+      - name: quantity
+        description: sum of quantity per order
+  - name: int_orders_operational
+    description: operational margin calcultation per order
+    columns:
+      - name: operational_margin
+        description: Operational margin = margin + shipping fee - log_cost - ship_cost
+  - name: finance_days
+    description: finance calculation per days
