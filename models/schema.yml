@@ -61,7 +61,7 @@ models:
     description: campaign_union of all campaign
     tests:
       - unique:
-          column_name: "(date_date || '-' || campaign_key)" 
+          column_name: "(date_date || '-' || campaign_key)"
 
   - name: stg_raw__ship
     description: clean
