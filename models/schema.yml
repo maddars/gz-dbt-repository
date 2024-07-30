@@ -52,6 +52,12 @@ sources:
           - name: ship_cost
             description: cost paid by the customer to ship the product
 models:
+  - name: finance_campaigns_day.sql
+    description: campaign of all campaign byy date
+    tests:
+      - unique:
+          column_name: date_date
+
   - name: int_campaigns_days
     description: campaign of all campaign byy date
     tests:
