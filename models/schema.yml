@@ -5,10 +5,14 @@ sources:
     schema: gz_raw_data
     tables:
       - name: raw_gz_adwords
+        description: ad_words campaign
       - name: raw_gz_bing
+        description: bing campaign
       - name: raw_gz_criteo
+        description: criteo campaign
       - name: raw_gz_facebook
-      
+        description: face campaign
+
       - name: sales
         identifier: raw_gz_sales
         description: sales of greenweez
@@ -48,7 +52,16 @@ sources:
           - name: ship_cost
             description: cost paid by the customer to ship the product
 models:
-
+  - name: int_campaigns_days
+    description: campaign of all campaign byy date
+    tests:
+      - unique:
+          column_name: date_date
+  - name: int_campaigns
+    description: campaign_union of all campaign
+    tests:
+      - unique:
+          column_name: "(date_date || '-' || campaign_key)" 
 
   - name: stg_raw__ship
     description: clean
