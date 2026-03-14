@@ -4,14 +4,18 @@ sources:
   - name: raw
     schema: gz_raw_data
     tables:
+
       - name: raw_gz_adwords
-        description: ad_words campaign
+        description: adwords campaign
+
       - name: raw_gz_bing
         description: bing campaign
+
       - name: raw_gz_criteo
         description: criteo campaign
+
       - name: raw_gz_facebook
-        description: face campaign
+        description: facebook campaign
 
       - name: sales
         identifier: raw_gz_sales
@@ -36,9 +40,9 @@ sources:
         description: product of greenweez
         columns:
           - name: products_id
-            description: primary key of the table
+            description: primary key
           - name: purchase_price
-            description: purchase price of the product
+            description: purchase price
 
       - name: ship
         identifier: raw_gz_ship
@@ -46,31 +50,17 @@ sources:
           - name: orders_id
             description: primary key of orders
           - name: shipping_fee
-            description: price the customer pays for shipping
+            description: shipping fee
           - name: log_cost
-            description: cost for preparing the parcel
+            description: preparation cost
           - name: ship_cost
-            description: cost paid by the customer to ship the product
-models:
-  - name: finance_campaigns_day.sql
-    description: campaign of all campaign byy date
-    tests:
-      - unique:
-          column_name: date_date
+            description: shipping cost
 
-  - name: int_campaigns_days
-    description: campaign of all campaign byy date
-    tests:
-      - unique:
-          column_name: date_date
-  - name: int_campaigns
-    description: campaign_union of all campaign
-    tests:
-      - unique:
-          column_name: "(date_date || '-' || campaign_key)"
+
+models:
 
   - name: stg_raw__ship
-    description: clean
+    description: clean ship table
     tests:
       - unique:
           column_name: orders_id
@@ -78,7 +68,7 @@ models:
           column_name: orders_id
 
   - name: stg_raw__product
-    description: clean2
+    description: clean product table
     tests:
       - unique:
           column_name: products_id
@@ -86,49 +76,24 @@ models:
           column_name: products_id
 
   - name: int_orders_margin
-    description: margin calcultation per order
+    description: margin calculation per order
     columns:
       - name: order_id
         description: primary key
       - name: margin
         description: Margin = Revenue - Purchase_cost
-      - name: Purchase_cost
-        description: Purchase_cost = Quantity * Purchase_price
-      - name: date_date
-        description: date of the order
-      - name: revenue
-        description: sum of revenue per order
-      - name: quantity
-        description: sum of quantity per order
-  - name: stg_raw_product
-  - name: stg_raw_sales
-  - name: stg_raw_ship
+
   - name: int_sales_margin
-    description: margin calcultation per order line / product sale
+    description: margin calculation per order line
     columns:
       - name: margin
         description: Margin = Revenue - Purchase_cost
-      - name: Purchase_cost
-        description: Purchase_cost = Quantity * Purchase_price
-  - name: int_orders_ma rgin
-    description: margin calcultation per order
-    columns:
-      - name: orders_id
-        description: primary key
-      - name: margin
-        description: Margin = Revenue - Purchase_cost
-      - name: Purchase_cost
-        description: Purchase_cost = Quantity * Purchase_price
-      - name: date_date
-        description: date of the order
-      - name: revenue
-        description: sum of revenue per order
-      - name: quantity
-        description: sum of quantity per order
+
   - name: int_orders_operational
-    description: operational margin calcultation per order
+    description: operational margin per order
     columns:
       - name: operational_margin
-        description: Operational margin = margin + shipping fee - log_cost - ship_cost
+        description: margin + shipping fee - log_cost - ship_cost
+
   - name: finance_days
-    description: finance calculation per days
+    description: finance calculation per day
